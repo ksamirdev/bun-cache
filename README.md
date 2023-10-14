@@ -61,4 +61,3 @@ Removes a key from the cache.
 ## License 📜
 
 Bun Cache is distributed under the MIT License.
-# bun-cache
