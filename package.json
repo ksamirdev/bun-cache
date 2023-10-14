@@ -2,10 +2,16 @@
   "name": "bun-cache",
   "module": "src/index.ts",
   "type": "module",
+  "version": "1.0.0",
   "devDependencies": {
     "bun-types": "latest"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
+  },
+  "author": "SamoCodes <samirdiff@proton.me>",
+  "license": "ISC",
+  "repository": {
+    "url": "https://github.com/samocodes/bun-cache"
   }
 }
