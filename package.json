@@ -1,6 +1,6 @@
 {
   "name": "bun-cache",
-  "module": "src/index.ts",
+  "module": "dist/index.js",
   "type": "module",
   "version": "1.0.0",
   "devDependencies": {
@@ -13,5 +13,8 @@
   "license": "ISC",
   "repository": {
     "url": "https://github.com/samocodes/bun-cache"
+  },
+  "dependencies": {
+    "bun-cache": "^1.0.0"
   }
 }

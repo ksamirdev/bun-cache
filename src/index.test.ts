@@ -1,6 +1,7 @@
 import { describe, beforeEach, setSystemTime, it, expect } from "bun:test";
 
 import BunCache from "./index";
+
 describe("BunCache", () => {
   let cache: BunCache;
 

@@ -1,5 +1,4 @@
 import { Database } from "bun:sqlite";
-import { type CacheSchema } from "./type";
 
 /**
  * A class representing a cache using Bun's SQLite.
@@ -101,3 +100,9 @@ class BunCache {
 }
 
 export default BunCache;
+
+export interface CacheSchema {
+  key: string;
+  value: string | null;
+  ttl: number;
+}
