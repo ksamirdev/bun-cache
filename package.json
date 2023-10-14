@@ -1,20 +1,19 @@
 {
   "name": "bun-cache",
+  "version": "1.0.2",
+  "author": "SamoCodes <samirdiff@proton.me>",
+  "repository": {
+    "url": "https://github.com/samocodes/bun-cache"
+  },
   "module": "dist/index.js",
-  "type": "module",
-  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "devDependencies": {
     "bun-types": "latest"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
-  "author": "SamoCodes <samirdiff@proton.me>",
   "license": "ISC",
-  "repository": {
-    "url": "https://github.com/samocodes/bun-cache"
-  },
-  "dependencies": {
-    "bun-cache": "^1.0.0"
-  }
+  "type": "module"
 }
