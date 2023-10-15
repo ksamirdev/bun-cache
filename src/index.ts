@@ -33,9 +33,9 @@ class BunCache {
    * @param key - The key for which to fetch the value.
    * @returns The value if the key exists and hasn't expired, `null` otherwise.
    */
-  get(key: string): string | object | null {
+  get(key: string): string | object | boolean | null {
     const query = this.cache.query(
-      "SELECT value, ttl FROM cache WHERE key = ?"
+      "SELECT value, ttl FROM cache WHERE key = ?",
     );
     const result = query.get(key) as CacheSchema | null;
 
@@ -43,7 +43,7 @@ class BunCache {
       const currentTime = Date.now();
 
       if (result.ttl > currentTime) {
-        if (result.value === null) return null;
+        if (result.value === null) return true;
 
         try {
           return JSON.parse(result.value);

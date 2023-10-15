@@ -15,7 +15,7 @@ declare class BunCache {
 	 * @param key - The key for which to fetch the value.
 	 * @returns The value if the key exists and hasn't expired, `null` otherwise.
 	 */
-	get(key: string): string | object | null;
+	get(key: string): string | object | boolean | null;
 	/**
 	 * Adds a value to the cache.
 	 * @param key - The key under which to store the value.

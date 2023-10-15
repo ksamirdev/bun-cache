@@ -25,7 +25,7 @@ class BunCache {
       const currentTime = Date.now();
       if (result.ttl > currentTime) {
         if (result.value === null)
-          return null;
+          return true;
         try {
           return JSON.parse(result.value);
         } catch (error) {
