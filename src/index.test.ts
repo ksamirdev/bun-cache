@@ -27,6 +27,15 @@ describe("BunCache", () => {
     expect(cache.get(key)).toEqual(value);
   });
 
+  it("should store and checks if that value exists", () => {
+    const key = "key-exists";
+    const value = { foo: "bar" };
+    const ttl = 1000;
+
+    expect(cache.put(key, value, ttl)).toBe(true);
+    expect(cache.hasKey(key)).toEqual(true);
+  });
+
   it("should return null for a non-existent key", () => {
     const key = "non-existent-key";
 

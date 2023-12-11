@@ -29,12 +29,6 @@ console.log(value); // 🌟 "my-value"
 
 ### `BunCache` Class
 
-The `BunCache` class represents a cache powered by the Bun'a SQLite.
-
-#### `constructor()`
-
-Creates a fresh instance of the `BunCache` class.
-
 #### `put(key: string, value: string | object, ttl: number): boolean`
 
 Adds a value to the cache.
@@ -57,6 +51,13 @@ Removes a key from the cache.
 
 - `key`: The key to be deleted.
 - Returns: `true` if the key was successfully deleted, `false` otherwise.
+
+#### `hasKey(key: string): boolean`
+
+Checks if a key exists in the cache.
+
+- `key`: The key to be checked
+- Returns: `true` if the key exists, `false` otherwise
 
 ## License 📜
 

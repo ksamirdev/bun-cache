@@ -34,8 +34,8 @@ class BunCache {
    * @returns The value if the key exists and hasn't expired, `null` otherwise.
    */
   get(key: string): string | object | boolean | null {
-    const query = this.cache.query(
-      "SELECT value, ttl FROM cache WHERE key = ?",
+    const query = this.cache.prepare(
+      "SELECT value, ttl FROM cache WHERE key = ?"
     );
     const result = query.get(key) as CacheSchema | null;
 
@@ -93,6 +93,20 @@ class BunCache {
     try {
       this.cache.run("DELETE FROM cache WHERE key = ?", [key]);
       return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  /**
+   * Checks if a key exists in the cache.
+   * @param key - The key to be checked
+   * @returns `true` if the key exists, `false` otherwise
+   */
+  hasKey(key: string): boolean {
+    try {
+      const query = this.cache.prepare("SELECT * FROM cache WHERE key = ?");
+      return (query.get(key) as CacheSchema | null) !== null;
     } catch (error) {
       return false;
     }
