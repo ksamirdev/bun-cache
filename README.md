@@ -17,7 +17,7 @@ To leverage Bun Cache, simply create a new instance of the `BunCache` class and 
 ```typescript
 import { BunCache } from "bun-cache";
 
-const cache = new BunCache();
+const cache = new BunCache(); // new BunCache(true) for persistance
 
 cache.put("my-key", "my-value", 1000);
 const value = cache.get("my-key");
@@ -28,6 +28,8 @@ console.log(value); // 🌟 "my-value"
 ## API 🧰
 
 ### `BunCache` Class
+
+- `persistance`: The persistance mode for the cache. If set to `true`, the cache will be stored in the database and will persist across app restarts. If set to `false`, the cache will be stored in memory and will be lost when the app is restarted.
 
 #### `put(key: string, value: string | object, ttl: number): boolean`
 

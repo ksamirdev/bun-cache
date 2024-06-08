@@ -4,8 +4,8 @@ import {Database} from "bun:sqlite";
 
 class BunCache {
   cache;
-  constructor() {
-    this.cache = new Database(":memory:");
+  constructor(persistance = false) {
+    this.cache = new Database(persistance ? "cache.sqlite" : ":memory:");
     this.initializeSchema();
   }
   initializeSchema() {
@@ -19,29 +19,29 @@ class BunCache {
     `);
   }
   get(key) {
-    const query = this.cache.query("SELECT value, ttl FROM cache WHERE key = ?");
+    const query = this.cache.prepare("SELECT value, ttl FROM cache WHERE key = ?");
     const result = query.get(key);
-    if (result !== null) {
-      const currentTime = Date.now();
-      if (result.ttl > currentTime) {
-        if (result.value === null)
-          return true;
-        try {
-          return JSON.parse(result.value);
-        } catch (error) {
-          return result.value;
-        }
+    if (!result)
+      return null;
+    if (result.value === null)
+      return true;
+    const currentTime = Date.now();
+    if (result.ttl === null || result.ttl > currentTime) {
+      try {
+        return JSON.parse(result.value);
+      } catch (error) {
+        return result.value;
       }
-      this.delete(key);
     }
+    this.delete(key);
     return null;
   }
   put(key, value, ttl) {
-    const expirationTime = Date.now() + ttl;
+    const expirationTime = typeof ttl === "undefined" ? null : Date.now() + ttl;
     try {
       this.cache.run("INSERT OR REPLACE INTO cache VALUES (?, ?, ?)", [
         key,
-        value !== null ? typeof value === "string" ? value : JSON.stringify(value) : null,
+        value ? JSON.stringify(value) : null,
         expirationTime
       ]);
       return true;
@@ -53,6 +53,14 @@ class BunCache {
     try {
       this.cache.run("DELETE FROM cache WHERE key = ?", [key]);
       return true;
+    } catch (error) {
+      return false;
+    }
+  }
+  hasKey(key) {
+    try {
+      const query = this.cache.prepare("SELECT * FROM cache WHERE key = ?");
+      return query.get(key) !== null;
     } catch (error) {
       return false;
     }

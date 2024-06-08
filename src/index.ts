@@ -9,8 +9,8 @@ class BunCache {
   /**
    * Creates a new instance of the BunCache class.
    */
-  constructor() {
-    this.cache = new Database(":memory:");
+  constructor(persistance: boolean = false) {
+    this.cache = new Database(persistance ? "cache.sqlite" : ":memory:");
     this.initializeSchema();
   }
 
@@ -35,26 +35,24 @@ class BunCache {
    */
   get(key: string): string | object | boolean | null {
     const query = this.cache.prepare(
-      "SELECT value, ttl FROM cache WHERE key = ?"
+      "SELECT value, ttl FROM cache WHERE key = ?",
     );
     const result = query.get(key) as CacheSchema | null;
+    if (!result) return null;
 
-    if (result !== null) {
-      const currentTime = Date.now();
+    if (result.value === null) return true;
 
-      if (result.ttl > currentTime) {
-        if (result.value === null) return true;
+    const currentTime = Date.now();
 
-        try {
-          return JSON.parse(result.value);
-        } catch (error) {
-          return result.value;
-        }
+    if (result.ttl === null || result.ttl > currentTime) {
+      try {
+        return JSON.parse(result.value);
+      } catch (error) {
+        return result.value;
       }
-
-      this.delete(key);
     }
 
+    this.delete(key);
     return null;
   }
 
@@ -65,17 +63,13 @@ class BunCache {
    * @param ttl - The time-to-live for the value, in milliseconds.
    * @returns `true` if the value was successfully stored, `false` otherwise.
    */
-  put(key: string, value: string | object | null, ttl: number): boolean {
-    const expirationTime = Date.now() + ttl;
+  put(key: string, value: string | object | null, ttl?: number): boolean {
+    const expirationTime = typeof ttl === "undefined" ? null : Date.now() + ttl;
 
     try {
       this.cache.run("INSERT OR REPLACE INTO cache VALUES (?, ?, ?)", [
         key,
-        value !== null
-          ? typeof value === "string"
-            ? value
-            : JSON.stringify(value)
-          : null,
+        value ? JSON.stringify(value) : null,
         expirationTime,
       ]);
       return true;
@@ -118,5 +112,5 @@ export default BunCache;
 export interface CacheSchema {
   key: string;
   value: string | null;
-  ttl: number;
+  ttl: number | null;
 }
