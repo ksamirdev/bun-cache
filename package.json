@@ -1,6 +1,7 @@
 {
   "name": "@samocodes/bun-cache",
   "version": "1.0.7",
+  "private": false,
   "author": "Samir <samirdiff@proton.me>",
   "repository": {
     "url": "git+https://github.com/samocodes/bun-cache"
