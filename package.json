@@ -1,6 +1,6 @@
 {
   "name": "@samocodes/bun-cache",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "private": false,
   "author": "Samir <samirdiff@proton.me>",
   "repository": {
@@ -16,5 +16,9 @@
   },
   "license": "ISC",
   "type": "module",
-  "types": "dist/index.d.ts"
+  "types": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
 }
