@@ -7,7 +7,7 @@ Bun Cache is a caching library for Bun apps that harnesses the power of the Bun'
 To get Bun Cache up and running, you can easily install it using bun cli:
 
 ```bash
-bun add bun-cache
+bun add @samocodes/bun-cache
 ```
 
 ## Usage 🚀
@@ -15,11 +15,11 @@ bun add bun-cache
 To leverage Bun Cache, simply create a new instance of the `BunCache` class and start using its methods:
 
 ```typescript
-import { BunCache } from "bun-cache";
+import { BunCache } from "@samocodes/bun-cache";
 
 const cache = new BunCache(); // new BunCache(true) for persistance
 
-cache.put("my-key", "my-value", 1000);
+cache.put("my-key", "my-value", 1000); // Store a value with a 1-second TTL
 const value = cache.get("my-key");
 
 console.log(value); // 🌟 "my-value"
@@ -31,7 +31,7 @@ console.log(value); // 🌟 "my-value"
 
 - `persistance`: The persistance mode for the cache. If set to `true`, the cache will be stored in the database and will persist across app restarts. If set to `false`, the cache will be stored in memory and will be lost when the app is restarted.
 
-#### `put(key: string, value: string | object, ttl: number): boolean`
+#### `put(key: string, value: string | object, ttl?: number): boolean`
 
 Adds a value to the cache.
 
