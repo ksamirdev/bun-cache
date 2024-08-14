@@ -1,6 +1,6 @@
 {
   "name": "@samocodes/bun-cache",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "private": false,
   "author": "Samir <samirdiff@proton.me>",
   "repository": {
@@ -9,7 +9,7 @@
   "main": "dist/index.js",
   "module": "dist/index.js",
   "devDependencies": {
-    "bun-types": "^1.1.12"
+    "@types/bun": "^1.1.6"
   },
   "peerDependencies": {
     "typescript": "^5.4.5"
