@@ -1,7 +1,7 @@
 # <img src="https://user-images.githubusercontent.com/709451/182802334-d9c42afe-f35d-4a7b-86ea-9985f73f20c3.png" alt="Logo" height=30 align="center"> Bun Cache
 
 [![CI](https://github.com/ksamirdev/bun-cache/actions/workflows/ci.yml/badge.svg)](https://github.com/ksamirdev/bun-cache/actions/workflows/ci.yml)
-[![npm version](https://img.shields.io/npm/v/@ksamirdev/bun-cache.svg)](https://www.npmjs.com/package/@ksamirdev/bun-cache)
+[![npm version](https://img.shields.io/npm/v/bun-cache.svg)](https://www.npmjs.com/package/bun-cache)
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
 
 Bun Cache is a caching library for Bun apps that harnesses the power of the Bun's SQLite to offer a straightforward and efficient caching solution.
@@ -11,7 +11,7 @@ Bun Cache is a caching library for Bun apps that harnesses the power of the Bun'
 To get Bun Cache up and running, you can easily install it using bun cli:
 
 ```bash
-bun add @ksamirdev/bun-cache
+bun add bun-cache
 ```
 
 ## Usage 🚀
@@ -19,7 +19,7 @@ bun add @ksamirdev/bun-cache
 To leverage Bun Cache, simply create a new instance of the `BunCache` class and start using its methods:
 
 ```typescript
-import { BunCache } from "@ksamirdev/bun-cache";
+import { BunCache } from "bun-cache";
 
 const cache = new BunCache(); // new BunCache({ persistent: true }) for persistance
 

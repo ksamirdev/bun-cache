@@ -1,5 +1,5 @@
 {
-  "name": "@ksamirdev/bun-cache",
+  "name": "bun-cache",
   "version": "1.0.9",
   "private": false,
   "description": "A tiny, fast cache for Bun using SQLite",
