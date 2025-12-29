@@ -71,8 +71,10 @@ class BunCache {
    * - If the stored DB `value` is `NULL`, this method returns `true`.
    * - Strings and JSON-serializable objects are parsed back to their original types.
    */
-  get(key: string): string | object | boolean | null {
-    const query = this.cache.prepare("SELECT value, ttl FROM cache WHERE key = ?");
+  get<T = string | object | boolean>(key: string): T | null {
+    const query = this.cache.prepare(
+      "SELECT value, ttl FROM cache WHERE key = ?"
+    );
     const row = query.get(key) as CacheSchema | undefined;
 
     if (!row) return null;
@@ -90,13 +92,13 @@ class BunCache {
     }
 
     if (row.value === "__TRUE__") {
-      return true;
+      return true as unknown as T;
     }
 
     try {
-      return JSON.parse(row.value);
+      return JSON.parse(row.value) as T;
     } catch {
-      return row.value; // fallback
+      return row.value as unknown as T; // fallback
     }
   }
 
@@ -107,14 +109,18 @@ class BunCache {
    * @param value Value to store (string, number, object, null, boolean)
    * @param ttl   Time-to-live in milliseconds (optional)
    */
-  put(key: string, value: string | number | object | boolean | null, ttl?: number): boolean {
+  put<T = string | number | object | boolean | null>(
+    key: string,
+    value: T,
+    ttl?: number
+  ): boolean {
     let serialized: string | null;
     let isTrueFlag = false;
 
-    if (value === true) {
+    if (value === (true as unknown as T)) {
       serialized = null;
       isTrueFlag = true;
-    } else if (value === null) {
+    } else if (value === (null as unknown as T)) {
       serialized = null;
       isTrueFlag = false;
     } else {
@@ -128,11 +134,7 @@ class BunCache {
       // But we only have 3 columns. So: use a special sentinel string for true
       this.cache.run(
         "INSERT OR REPLACE INTO cache (key, value, ttl) VALUES (?, ?, ?)",
-        [
-          key,
-          serialized ?? (isTrueFlag ? "__TRUE__" : null),
-          expiration,
-        ],
+        [key, serialized ?? (isTrueFlag ? "__TRUE__" : null), expiration]
       );
       return true;
     } catch {
@@ -156,9 +158,7 @@ class BunCache {
    * Check whether a key exists and hasn't expired.
    */
   hasKey(key: string): boolean {
-    const query = this.cache.prepare(
-      "SELECT ttl FROM cache WHERE key = ?",
-    );
+    const query = this.cache.prepare("SELECT ttl FROM cache WHERE key = ?");
     const row = query.get(key) as { ttl: number | null } | undefined;
 
     if (!row) return false;
@@ -195,5 +195,5 @@ class BunCache {
   }
 }
 
-export default BunCache;
+export { BunCache };
 export type { BunCacheOptions, CacheSchema };

@@ -10,7 +10,7 @@ import {
 import { unlinkSync, existsSync } from "node:fs";
 import { join } from "node:path";
 
-import BunCache from ".";
+import { BunCache } from ".";
 
 const TEST_DB_PATH = join(import.meta.dirname, "test-cache.sqlite");
 const CUSTOM_DB_PATH = join(import.meta.dirname, "custom-cache.db");

@@ -5,9 +5,10 @@
     "target": "esnext",
     "moduleResolution": "bundler",
     "moduleDetection": "force",
-    "allowImportingTsExtensions": true,
-    "noEmit": true,
-    "composite": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "rootDir": "src",
+    "outDir": "dist",
     "strict": true,
     "downlevelIteration": true,
     "skipLibCheck": true,
@@ -16,5 +17,7 @@
     "forceConsistentCasingInFileNames": true,
     "allowJs": true,
     "types": ["@types/bun"]
-  }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["src/**/*.test.ts", "dist"]
 }

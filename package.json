@@ -1,18 +1,47 @@
 {
-  "name": "@samocodes/bun-cache",
+  "name": "@ksamirdev/bun-cache",
   "version": "1.0.9",
   "private": false,
+  "description": "A tiny, fast cache for Bun using SQLite",
+  "keywords": [
+    "bun",
+    "cache",
+    "sqlite",
+    "persistent",
+    "ttl"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "test": "bun test",
+    "build": "bun build ./src/index.ts --outdir ./dist --target bun && tsc --emitDeclarationOnly",
+    "lint": "prettier --check .",
+    "format": "prettier --write .",
+    "prepare": "husky",
+    "release": "semantic-release"
+  },
   "author": "Samir <samirdiff@proton.me>",
   "repository": {
-    "url": "git+https://github.com/samocodes/bun-cache"
+    "url": "git+https://github.com/ksamirdev/bun-cache"
   },
+  "files": [
+    "dist"
+  ],
   "main": "dist/index.js",
   "module": "dist/index.js",
   "devDependencies": {
-    "@types/bun": "^1.1.6"
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^12.0.2",
+    "@semantic-release/npm": "^13.1.3",
+    "@types/bun": "^1.1.6",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.7.4",
+    "semantic-release": "^25.0.2"
   },
   "peerDependencies": {
-    "typescript": "^5.4.5"
+    "typescript": "^5.9.3"
   },
   "license": "ISC",
   "type": "module",
@@ -20,5 +49,10 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
+  },
+  "lint-staged": {
+    "*.{ts,js,json,md}": [
+      "prettier --write"
+    ]
   }
 }

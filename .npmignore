@@ -2,3 +2,11 @@ node_modules
 src
 tsconfig.json
 bun.lockb
+.github
+.husky
+.releaserc
+.prettierrc
+.prettierignore
+*.sqlite
+tsconfig.tsbuildinfo
+.gitignore
