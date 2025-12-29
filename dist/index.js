@@ -59,11 +59,7 @@ class BunCache {
     }
     const expiration = ttl !== undefined ? Date.now() + ttl : null;
     try {
-      this.cache.run("INSERT OR REPLACE INTO cache (key, value, ttl) VALUES (?, ?, ?)", [
-        key,
-        serialized ?? (isTrueFlag ? "__TRUE__" : null),
-        expiration
-      ]);
+      this.cache.run("INSERT OR REPLACE INTO cache (key, value, ttl) VALUES (?, ?, ?)", [key, serialized ?? (isTrueFlag ? "__TRUE__" : null), expiration]);
       return true;
     } catch {
       return false;
@@ -99,7 +95,6 @@ class BunCache {
     } catch {}
   }
 }
-var src_default = BunCache;
 export {
-  src_default as default
+  BunCache
 };

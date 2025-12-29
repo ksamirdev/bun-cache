@@ -46,7 +46,7 @@ declare class BunCache {
      * - If the stored DB `value` is `NULL`, this method returns `true`.
      * - Strings and JSON-serializable objects are parsed back to their original types.
      */
-    get(key: string): string | object | boolean | null;
+    get<T = string | object | boolean>(key: string): T | null;
     /**
      * Stores a value in the cache.
      *
@@ -54,7 +54,7 @@ declare class BunCache {
      * @param value Value to store (string, number, object, null, boolean)
      * @param ttl   Time-to-live in milliseconds (optional)
      */
-    put(key: string, value: string | number | object | boolean | null, ttl?: number): boolean;
+    put<T = string | number | object | boolean | null>(key: string, value: T, ttl?: number): boolean;
     /**
      * Remove a key from the cache.
      */
@@ -73,5 +73,5 @@ declare class BunCache {
      */
     close(): void;
 }
-export default BunCache;
+export { BunCache };
 export type { BunCacheOptions, CacheSchema };
